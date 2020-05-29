@@ -5,7 +5,7 @@ const rootReducer = combineReducers({
   news: newsReducer,
 });
 
-// type RootReducer = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 const store = createStore(rootReducer);
 

@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { RootState } from './store';
 
 interface Story {
   id: string;
@@ -15,15 +16,21 @@ interface NewsState {
   news: Story[];
 }
 
-// const NEWS_REQUEST = 'news/request';
+const NEWS_REQUEST = 'news/request';
 // const NEWS_SUCCESS = 'news/success';
 // const NEWS_FAILURE = 'news/failure';
 
-// type NewsRequestAction = Action<typeof NEWS_REQUEST>;
+type NewsRequestAction = Action<typeof NEWS_REQUEST>;
 
-// const newsRequest = (): NewsRequestAction => ({
-//     type: NEWS_REQUEST
-// });
+export const newsRequest = (): NewsRequestAction => ({
+  type: NEWS_REQUEST,
+});
+
+export const selectNews = (rootState: RootState) => {
+  const { news } = rootState;
+  console.log(news);
+  return news;
+};
 
 const initialState: NewsState = {
   news: [],
