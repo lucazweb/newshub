@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
 import api from '../services/news.service';
+import { translateStory } from '../lib/utils';
 
 export interface Story {
   id: string;
@@ -50,21 +51,8 @@ export const fetchNews = (): ThunkAction<
       data: { articles, totalResults },
     } = response;
 
-    console.log(articles);
-
     const news = articles.reduce(
-      (acc: NewsState, story: any) =>
-        acc.concat({
-          id: story.publishedAt,
-          title: story.title,
-          description: story.description,
-          author: story.author,
-          image: story.urlToImage,
-          url: story.url,
-          publishedAt: story.publishedAt,
-          content: story.content,
-          source: story.source.name,
-        }),
+      (acc: NewsState, story: any) => acc.concat(translateStory(story)),
       []
     );
 
