@@ -8,6 +8,7 @@ import { RootState } from '../../redux/store';
 import { fetchNews } from '../../redux/news';
 
 const mapState = ({ news }: RootState) => {
+  console.log(news);
   return {
     news,
   };

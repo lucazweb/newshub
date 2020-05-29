@@ -3,8 +3,6 @@ import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
 import api from '../services/news.service';
 
-import { mock } from './news.mock';
-
 export interface Story {
   id: string;
   title: string;
@@ -40,24 +38,40 @@ export const fetchNews = (): ThunkAction<
     type: NEWS_REQUEST,
   });
 
-  // Performing an api call
-  api
-    .get('/top-headlines', {
+  try {
+    // Performing an api call
+    const response = await api.get('/top-headlines', {
       params: {
         country: 'us',
       },
-    })
-    .then((data) => console.log(data));
+    });
 
-  try {
-    // dispatch NEWS_SUCCESS ACTION
+    const {
+      data: { articles, totalResults },
+    } = response;
 
-    const response = await mock;
+    console.log(articles);
+
+    const news = articles.reduce(
+      (acc: NewsState, story: any) =>
+        acc.concat({
+          id: story.publishedAt,
+          title: story.title,
+          description: story.description,
+          author: story.author,
+          image: story.urlToImage,
+          url: story.url,
+          publishedAt: story.publishedAt,
+          content: story.content,
+          source: story.source.name,
+        }),
+      []
+    );
 
     dispatch({
       type: NEWS_SUCCESS,
       payload: {
-        news: response,
+        news,
       },
     });
   } catch (err) {
