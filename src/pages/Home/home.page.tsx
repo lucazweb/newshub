@@ -1,10 +1,20 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Story } from '../../components';
+import { StoryItem } from '../../components';
 import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
 import { TiArrowShuffle } from 'react-icons/ti';
+import { connect } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-export const Home: React.FC = () => {
+const mapState = ({ news }: RootState) => {
+  return {
+    news,
+  };
+};
+
+type HomePageProps = ReturnType<typeof mapState>;
+
+const HomePage: React.FC<HomePageProps> = ({ news }) => {
   return (
     <>
       <Row between="xs">
@@ -22,34 +32,15 @@ export const Home: React.FC = () => {
       </Row>
 
       <Row center="xs">
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-      </Row>
-
-      <Row style={{ marginTop: 18 }} center="xs">
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
-        <Col xs={11} md={3}>
-          <Story />
-        </Col>
+        {news.length > 0 &&
+          news.map((story) => (
+            <Col key={story.id} xs={11} md={3}>
+              <StoryItem story={story} />
+            </Col>
+          ))}
       </Row>
     </>
   );
 };
+
+export const Home = connect(mapState)(HomePage);

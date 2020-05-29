@@ -1,17 +1,17 @@
 import React from 'react';
+import { Story } from '../../redux/news';
 import { StoryCard, StyledImageBox, Title, StyledSpan } from './story.styled';
 
-const tempImage =
-  'https://cdn.cnn.com/cnnnext/dam/assets/200528165046-03-trump-social-media-executive-order-large-tease.jpg';
+interface StoryProps {
+  story: Story;
+}
 
-export const Story: React.FC = () => {
+export const StoryItem: React.FC<StoryProps> = ({ story }) => {
   return (
     <StoryCard>
-      <StyledSpan>The New York Times</StyledSpan>
-      <StyledImageBox image={tempImage} />
-      <Title>
-        A new research developed in order to help Covid19 victims by UCLA
-      </Title>
+      <StyledSpan>{story.source}</StyledSpan>
+      <StyledImageBox image={story.image} />
+      <Title>{story.title}</Title>
     </StoryCard>
   );
 };

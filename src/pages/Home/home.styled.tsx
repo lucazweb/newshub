@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { H1 } from '../../components/Config/typography.component';
 import { Colors } from '../../components/Config/constants';
 
-export const ResultHeading = styled(H1)`
+export const ResultHeading = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
