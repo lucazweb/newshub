@@ -1,6 +1,15 @@
 import React from 'react';
-import {} from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
+import { Story } from '../../components';
 
 export const Home: React.FC = () => {
-  return <pre> Home </pre>;
+  return (
+    <Row center="xs">
+      <Col xs={11}>
+        <Story />
+        <Story />
+        <Story />
+      </Col>
+    </Row>
+  );
 };
