@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
+import api from '../services/news.service';
 
 import { mock } from './news.mock';
 
@@ -38,7 +39,16 @@ export const fetchNews = (): ThunkAction<
   dispatch({
     type: NEWS_REQUEST,
   });
-  console.log('call...');
+
+  // Performing an api call
+  api
+    .get('/top-headlines', {
+      params: {
+        country: 'us',
+      },
+    })
+    .then((data) => console.log(data));
+
   try {
     // dispatch NEWS_SUCCESS ACTION
 
