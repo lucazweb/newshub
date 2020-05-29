@@ -3,6 +3,12 @@ import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
 import api from '../services/news.service';
 import { translateStory } from '../lib/utils';
+import {
+  EnableLoadingAction,
+  DisableLoadingAction,
+  ENABLE_LOADING,
+  DISABLE_LOADING,
+} from './user-interface';
 
 export interface Story {
   id: string;
@@ -29,14 +35,23 @@ interface NewsSuccessAction extends Action<typeof NEWS_SUCCESS> {
 }
 // const NEWS_FAILURE = 'news/failure';
 
-export const fetchNews = (): ThunkAction<
+export const fetchNews = (
+  query: string = ''
+): ThunkAction<
   void,
   RootState,
   undefined,
-  NewsRequestAction | NewsSuccessAction
+  | NewsRequestAction
+  | NewsSuccessAction
+  | EnableLoadingAction
+  | DisableLoadingAction
 > => async (dispatch) => {
   dispatch({
     type: NEWS_REQUEST,
+  });
+
+  dispatch({
+    type: ENABLE_LOADING,
   });
 
   try {
@@ -61,6 +76,10 @@ export const fetchNews = (): ThunkAction<
       payload: {
         news,
       },
+    });
+
+    dispatch({
+      type: DISABLE_LOADING,
     });
   } catch (err) {
     // dispatch NEWS_FAILURE ACTION
