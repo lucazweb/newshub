@@ -7,7 +7,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { fetchNews } from '../../redux/news';
 
-const mapState = ({ news }: RootState) => {
+const mapState = ({ news, ui }: RootState) => {
+  console.log(ui);
   return {
     news,
   };
