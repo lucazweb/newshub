@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { StoryItem } from '../../components';
 import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
 import { TiArrowShuffle } from 'react-icons/ti';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { fetchNews } from '../../redux/news';
 
 const mapState = ({ news }: RootState) => {
   return {
@@ -12,9 +13,21 @@ const mapState = ({ news }: RootState) => {
   };
 };
 
-type HomePageProps = ReturnType<typeof mapState>;
+const mapDispatch = {
+  fetchNews,
+};
 
-const HomePage: React.FC<HomePageProps> = ({ news }) => {
+const connector = connect(mapState, mapDispatch);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface HomePageProps extends PropsFromRedux {}
+
+const HomePage: React.FC<HomePageProps> = ({ news, fetchNews }) => {
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
   return (
     <>
       <Row between="xs">
@@ -43,4 +56,4 @@ const HomePage: React.FC<HomePageProps> = ({ news }) => {
   );
 };
 
-export const Home = connect(mapState)(HomePage);
+export const Home = connect(mapState, mapDispatch)(HomePage);
