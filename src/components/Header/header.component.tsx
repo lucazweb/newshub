@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyledHeader } from './header.styled';
+import { AppTitle, StyledHeader } from './header.styled';
 
 export const Header: React.FC = () => {
   return (
     <StyledHeader>
-      <pre>NewsHub</pre>
+      <AppTitle>NewsHub</AppTitle>
     </StyledHeader>
   );
 };
