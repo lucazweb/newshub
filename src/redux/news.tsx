@@ -1,5 +1,8 @@
 import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
+
+import { mock } from './news.mock';
 
 export interface Story {
   id: string;
@@ -13,21 +16,44 @@ export interface Story {
   source: string;
 }
 
-// interface NewsState {
-//   news: Story[];
-// }
-
 type NewsState = Story[];
 
 const NEWS_REQUEST = 'news/request';
-// const NEWS_SUCCESS = 'news/success';
+interface NewsRequestAction extends Action<typeof NEWS_REQUEST> {}
+
+const NEWS_SUCCESS = 'news/success';
+interface NewsSuccessAction extends Action<typeof NEWS_SUCCESS> {
+  payload: {
+    news: NewsState;
+  };
+}
 // const NEWS_FAILURE = 'news/failure';
 
-type NewsRequestAction = Action<typeof NEWS_REQUEST>;
+export const fetchNews = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  NewsRequestAction | NewsSuccessAction
+> => async (dispatch) => {
+  dispatch({
+    type: NEWS_REQUEST,
+  });
+  console.log('call...');
+  try {
+    // dispatch NEWS_SUCCESS ACTION
 
-export const newsRequest = (): NewsRequestAction => ({
-  type: NEWS_REQUEST,
-});
+    const response = await mock;
+
+    dispatch({
+      type: NEWS_SUCCESS,
+      payload: {
+        news: response,
+      },
+    });
+  } catch (err) {
+    // dispatch NEWS_FAILURE ACTION
+  }
+};
 
 export const selectNews = (rootState: RootState) => {
   const { news } = rootState;
@@ -35,42 +61,20 @@ export const selectNews = (rootState: RootState) => {
   return news;
 };
 
-const initialState: NewsState = [
-  {
-    id: '_jdoajfai!id',
-    title: 'A new research developed in order to help Covid19 victims by UCLA',
-    description:
-      'A new research developed in order to help Covid19 victims by UCLA',
-    author: 'Pamela Wells',
-    image:
-      'https://cdn.cnn.com/cnnnext/dam/assets/200430131824-02-russia-coronavirus-medical-workers-medium-tease.jpg',
-    url:
-      'https://edition.cnn.com/2020/05/29/politics/donald-trump-george-floyd-protests/index.html',
-    publishedAt: new Date().toISOString(),
-    content:
-      'A new research developed in order to help Covid19 victims by UCLA',
-    source: 'CNN',
-  },
-  {
-    id: '_jdoajfaafasddsa',
-    title:
-      'Trump says right-wing voices are being censored. The data says something else',
-    description:
-      'A new research developed in order to help Covid19 victims by UCLA',
-    author: 'Pamela Wells',
-    image:
-      'https://cdn.cnn.com/cnnnext/dam/assets/200528165045-02-trump-social-media-executive-order-large-tease.jpg',
-    url:
-      'https://edition.cnn.com/2020/05/29/politics/donald-trump-george-floyd-protests/index.html',
-    publishedAt: new Date().toISOString(),
-    content:
-      'A new research developed in order to help Covid19 victims by UCLA',
-    source: 'The New York Times',
-  },
-];
+const initialState: NewsState = [];
 
-const newsReducer = function (state: NewsState = initialState, action: Action) {
+const newsReducer = function (
+  state: NewsState = initialState,
+  action: NewsRequestAction | NewsSuccessAction
+) {
   switch (action.type) {
+    case NEWS_REQUEST:
+      return state;
+
+    case NEWS_SUCCESS:
+      const { news } = action.payload;
+      return [...state, ...news];
+
     default:
       return state;
   }
