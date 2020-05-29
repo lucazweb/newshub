@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
-
-import { mock } from './news.mock';
+import api from '../services/news.service';
+import { translateStory } from '../lib/utils';
 
 export interface Story {
   id: string;
@@ -38,16 +38,28 @@ export const fetchNews = (): ThunkAction<
   dispatch({
     type: NEWS_REQUEST,
   });
-  console.log('call...');
-  try {
-    // dispatch NEWS_SUCCESS ACTION
 
-    const response = await mock;
+  try {
+    // Performing an api call
+    const response = await api.get('/top-headlines', {
+      params: {
+        country: 'us',
+      },
+    });
+
+    const {
+      data: { articles, totalResults },
+    } = response;
+
+    const news = articles.reduce(
+      (acc: NewsState, story: any) => acc.concat(translateStory(story)),
+      []
+    );
 
     dispatch({
       type: NEWS_SUCCESS,
       payload: {
-        news: response,
+        news,
       },
     });
   } catch (err) {
