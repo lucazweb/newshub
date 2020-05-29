@@ -1,14 +1,25 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Story } from '../../components';
-import { ResultHeading } from './home.styled';
+import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
+import { TiArrowShuffle } from 'react-icons/ti';
 
 export const Home: React.FC = () => {
   return (
     <>
-      <ResultHeading>
-        Results for <em>Covid 19</em> of principals news sources
-      </ResultHeading>
+      <Row between="xs">
+        <Col xs={12}>
+          <ResultHeading>
+            <ResultText>
+              Results for <em>Covid 19</em> of principals news sources
+            </ResultText>
+            <ShuffleButton>
+              <TiArrowShuffle />
+              <span>Shuffle</span>
+            </ShuffleButton>
+          </ResultHeading>
+        </Col>
+      </Row>
 
       <Row center="xs">
         <Col xs={11} md={3}>
