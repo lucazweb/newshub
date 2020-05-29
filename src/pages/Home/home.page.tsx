@@ -6,11 +6,12 @@ import { TiArrowShuffle } from 'react-icons/ti';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { fetchNews } from '../../redux/news';
+import { HomeSkeleton } from './home-skeleton.component';
 
-const mapState = ({ news, ui }: RootState) => {
-  console.log(ui);
+const mapState = ({ news, ui: { loading } }: RootState) => {
   return {
     news,
+    loading,
   };
 };
 
@@ -24,7 +25,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface HomePageProps extends PropsFromRedux {}
 
-const HomePage: React.FC<HomePageProps> = ({ news, fetchNews }) => {
+const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
   useEffect(() => {
     fetchNews();
   }, []);
@@ -46,13 +47,15 @@ const HomePage: React.FC<HomePageProps> = ({ news, fetchNews }) => {
       </Row>
 
       <Row center="xs">
-        {news.length > 0 &&
+        {!loading &&
+          news.length > 0 &&
           news.map((story) => (
             <Col key={story.id} xs={11} md={3}>
               <StoryItem story={story} />
             </Col>
           ))}
       </Row>
+      {loading && <HomeSkeleton />}
     </>
   );
 };

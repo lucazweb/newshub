@@ -50,3 +50,8 @@ export const StyledSpan = styled.span`
   opacity: 0.8;
   z-index: 900;
 `;
+
+// Skeleton image wrapper
+export const SkeletonWrapper = styled.div`
+  margin-bottom: 8px;
+`;
