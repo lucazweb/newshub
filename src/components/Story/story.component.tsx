@@ -2,7 +2,7 @@ import React from 'react';
 import { StoryCard, StyledImageBox, Title, StyledSpan } from './story.styled';
 
 const tempImage =
-  'https://cdn.cnn.com/cnnnext/dam/assets/200528034043-01-hong-kong-economy-restricted-medium-tease.jpg';
+  'https://cdn.cnn.com/cnnnext/dam/assets/200528165046-03-trump-social-media-executive-order-large-tease.jpg';
 
 export const Story: React.FC = () => {
   return (

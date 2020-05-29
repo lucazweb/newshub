@@ -24,6 +24,12 @@ export const StyledImageBox = styled.div`
     background-repeat: no-repeat;
     border-radius: 4px;
     margin-bottom: 12px;
+    filter: grayscale(.9);
+    transition: filter ease 0.5s;
+    cursor: pointer;
+    &:hover {
+      filter: none;
+    }
 `;
 
 export const Title = styled(H2)`
@@ -42,4 +48,5 @@ export const StyledSpan = styled.span`
   padding-right: 8px;
   border-radius: 0 0 6px 0px;
   opacity: 0.8;
+  z-index: 900;
 `;
