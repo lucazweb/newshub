@@ -6,6 +6,7 @@ import {
   StoryContent,
   StoryFeaturedImage,
   CloseBtn,
+  SourceTitle,
 } from './story-detail.styled';
 import { Story } from '../../redux/news';
 import { RiCloseLine } from 'react-icons/ri';
@@ -26,6 +27,12 @@ export const StoryDetail: React.FC<StoryDetail> = ({ story, handleClose }) => {
         <StoryTitle>{story.title}</StoryTitle>
         <StoryFeaturedImage image={story.image} />
         <StoryContent>{story.content}</StoryContent>
+        <SourceTitle>
+          See on:{' '}
+          <a href={story.url} rel="noopener noreferrer" target="_blank">
+            {story.source}
+          </a>
+        </SourceTitle>
       </StoryModal>
     </StoryModalOverflow>
   );

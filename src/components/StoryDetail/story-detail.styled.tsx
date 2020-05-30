@@ -62,3 +62,11 @@ export const StoryFeaturedImage = styled(StyledImageBox)`
 export const StoryContent = styled.p`
   line-height: 1.6em;
 `;
+
+export const SourceTitle = styled.span`
+  display: block;
+  margin-top: 18px;
+  a {
+    font-weight: bold;
+  }
+`;
