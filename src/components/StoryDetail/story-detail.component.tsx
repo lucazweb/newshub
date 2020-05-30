@@ -17,7 +17,6 @@ interface StoryDetail {
 }
 
 export const StoryDetail: React.FC<StoryDetail> = ({ story, handleClose }) => {
-  console.log(story);
   return (
     <StoryModalOverflow>
       <StoryModal>
