@@ -31,6 +31,7 @@ export const StyledImageBox = styled.div`
     margin-bottom: 12px;
     filter: grayscale(.9);
     transition: filter ease 0.5s;
+    border: 1px solid #DADCE0;
     cursor: pointer;
     &:hover {
       filter: none;
