@@ -6,6 +6,8 @@ import api, {
   fetchNYT,
   translateStory,
   tGuardianToStory,
+  NYTStory,
+  NytToStory,
 } from '../services/news.service';
 import {
   EnableLoadingAction,
@@ -86,7 +88,12 @@ export const fetchNews = (
         acc.concat(tGuardianToStory(story)),
       []
     );
-    //console.log('translated', theGuardianNews);
+
+    const theNYTNews = NYT.reduce(
+      (acc: NewsState, story: NYTStory) => acc.concat(NytToStory(story)),
+      []
+    );
+    console.log('translated', theNYTNews);
 
     // Performing an api call
     const response = await api.get('/top-headlines', {
@@ -99,10 +106,12 @@ export const fetchNews = (
       data: { articles, totalResults },
     } = response;
 
-    const news = articles.reduce(
-      (acc: NewsState, story: any) => acc.concat(translateStory(story)),
-      []
-    );
+    const news = [...theGuardianNews, ...theNYTNews];
+
+    // const news = articles.reduce(
+    //   (acc: NewsState, story: any) => acc.concat(translateStory(story)),
+    //   []
+    // );
 
     dispatch({
       type: NEWS_SUCCESS,

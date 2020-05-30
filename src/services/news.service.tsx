@@ -46,7 +46,7 @@ export const translateStory = (story: NewsAPIStory) => {
 
 // The Guardian API
 
-interface TheGuardianData {
+interface TheGuardianStory {
   id: string;
   webTitle: string;
   fields: {
@@ -89,7 +89,7 @@ export const fetchTGuardian = (q: string = '') => {
     .catch((err) => null);
 };
 
-export const tGuardianToStory = (story: TheGuardianData) => {
+export const tGuardianToStory = (story: TheGuardianStory) => {
   return {
     id: story.id,
     title: story.webTitle,
@@ -115,7 +115,7 @@ apiNYT.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchNYT = (q: string = '') => {
+export const fetchNYT = (q: string = 'covid') => {
   return apiNYT
     .get('', {
       params: {
@@ -134,4 +134,40 @@ export const fetchNYT = (q: string = '') => {
     .catch((err) => null);
 };
 
+interface MediaObj {
+  url: string;
+}
+
+export interface NYTStory {
+  _id: string;
+  abstract: string;
+  headline: {
+    name: string;
+  };
+  byline: {
+    original: string;
+  };
+  lead_paragraph: string;
+  multimedia: MediaObj[];
+  web_url: string;
+  pub_date: string;
+  snippet: string;
+  source: string;
+}
+
+export const NytToStory = (story: NYTStory) => {
+  return {
+    id: story._id,
+    title: story.headline.name,
+    description: story.snippet,
+    author: story.byline.original,
+    image: story.multimedia[0].url,
+    url: story.web_url,
+    publishedAt: story.pub_date,
+    content: story.headline.name,
+    source: story.source,
+  };
+};
+
+// NewsAPI as default datasource
 export default api;
