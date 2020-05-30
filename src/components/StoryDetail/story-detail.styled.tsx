@@ -1,0 +1,64 @@
+import styled from 'styled-components';
+import { Colors } from '../Config/constants';
+import { H2 } from '../Config/typography.component';
+import { StyledImageBox } from '../Story/story.styled';
+
+export const StoryModalOverflow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  background: rgba(226, 226, 183, 0.8);
+`;
+
+export const StoryModal = styled.div`
+  position: relative;
+  width: 50%;
+  height: 100vh;
+  background: white;
+  border-left: 10px solid ${Colors.primary};
+  padding: 32px;
+  overflow-y: scroll;
+`;
+
+export const CloseBtn = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  right: 20px;
+  top: 10px;
+
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #333;
+  font-size: 2em;
+  background: #f3f3f3;
+  &:hover {
+    background: ${Colors.primary};
+    color: white;
+  }
+`;
+
+export const StoryTitle = styled(H2)`
+  width: 90%;
+  font-size: 1.5em;
+  margin-bottom: 32px;
+`;
+
+export const StoryFeaturedImage = styled(StyledImageBox)`
+  width: 100%;
+  height: 350px;
+`;
+
+export const StoryContent = styled.p`
+  line-height: 1.6em;
+`;
