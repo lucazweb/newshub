@@ -1,8 +1,12 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
-import api from '../services/news.service';
-import { translateStory } from '../lib/utils';
+import api, {
+  fetchTGuardian,
+  fetchNYT,
+  translateStory,
+  tGuardianToStory,
+} from '../services/news.service';
 import {
   EnableLoadingAction,
   DisableLoadingAction,
@@ -55,6 +59,35 @@ export const fetchNews = (
   });
 
   try {
+    // Fetch The Guardian Data and NYT
+
+    const [theGuardian, NYT] = await Promise.all([
+      fetchTGuardian(),
+      fetchNYT(),
+    ]);
+
+    console.log('⚡️', theGuardian, NYT);
+
+    interface TheGuardianData {
+      id: string;
+      webTitle: string;
+      fields: {
+        headline: string;
+        thumbnail: string;
+        shortUrl: string;
+        body: string;
+      };
+      webPublicationDate: string;
+    }
+
+    // translate The Guardian News
+    const theGuardianNews = theGuardian.reduce(
+      (acc: NewsState, story: TheGuardianData) =>
+        acc.concat(tGuardianToStory(story)),
+      []
+    );
+    //console.log('translated', theGuardianNews);
+
     // Performing an api call
     const response = await api.get('/top-headlines', {
       params: {
@@ -82,6 +115,7 @@ export const fetchNews = (
       type: DISABLE_LOADING,
     });
   } catch (err) {
+    console.log(err);
     // dispatch NEWS_FAILURE ACTION
   }
 };
