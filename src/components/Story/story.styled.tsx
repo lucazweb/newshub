@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { H2 } from '../Config/typography.component';
 
-export const StoryCard = styled.div`
+interface StoryCardProps {
+  onClick?: () => void;
+}
+
+export const StoryCard = styled.div<StoryCardProps>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -22,10 +26,12 @@ export const StyledImageBox = styled.div`
       image ? image : imagePlaceholder}');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     border-radius: 4px;
     margin-bottom: 12px;
     filter: grayscale(.9);
     transition: filter ease 0.5s;
+    border: 1px solid #DADCE0;
     cursor: pointer;
     &:hover {
       filter: none;

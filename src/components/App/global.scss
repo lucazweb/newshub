@@ -112,6 +112,11 @@ section {
 }
 body {
   line-height: 1;
+  overflow: hidden;
+
+  @media (max-width: 48em) {
+    overflow: auto;
+  }
 }
 ol,
 ul {

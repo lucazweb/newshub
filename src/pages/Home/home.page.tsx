@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { StoryItem } from '../../components';
+import { StoryItem, StoryDetail } from '../../components';
 import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
 import { TiArrowShuffle } from 'react-icons/ti';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { fetchNews } from '../../redux/news';
+import { Story, fetchNews } from '../../redux/news';
 import { HomeSkeleton } from './home-skeleton.component';
 
 const mapState = ({ news, ui: { loading } }: RootState) => {
@@ -26,6 +26,12 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface HomePageProps extends PropsFromRedux {}
 
 const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
+  const [story, setStory] = useState<Story | null>(null);
+
+  const handleClose = () => {
+    setStory(null);
+  };
+
   useEffect(() => {
     fetchNews();
   }, []);
@@ -49,13 +55,15 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
       <Row center="xs">
         {!loading &&
           news.length > 0 &&
-          news.map((story) => (
+          news.slice(0, 8).map((story) => (
             <Col key={story.id} xs={11} md={3}>
-              <StoryItem story={story} />
+              <StoryItem handleDetail={setStory} story={story} />
             </Col>
           ))}
       </Row>
       {loading && <HomeSkeleton />}
+
+      {story && <StoryDetail handleClose={handleClose} story={story} />}
     </>
   );
 };
