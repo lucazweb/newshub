@@ -8,8 +8,9 @@ export const StyledSearchBtn = styled.button`
   justify-content: center;
   border: none;
   background: transparent;
-  font-size: 1em;
+  font-size: 0.8em;
   cursor: pointer;
+  margin-left: 4px;
   &:hover {
     color: ${Colors.primary};
   }
@@ -17,15 +18,16 @@ export const StyledSearchBtn = styled.button`
 
 export const StyledQueryBtn = styled.button`
   background: white;
-  border: 1px solid #dadce0;
+  border: 1px solid ${Colors.primary};
   margin: auto 5px;
   border-radius: 3px;
   font-size: 0.8em;
   font-style: italic;
   cursor: pointer;
-  color: #666;
+  color: ${Colors.primary};
   padding: 4px 6px;
   &:hover {
     background: yellow;
+    color: #333;
   }
 `;
