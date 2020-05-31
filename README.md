@@ -8,7 +8,7 @@ A Typescript React / Redux application, to get top headlines of different source
 
 ### Installation
 
-This application will need [Node.js v.10](https://nodejs.org/en/) or superior version to works like a charm 😉
+This application will need [Node.js v.10](https://nodejs.org/en/) or superior versions to work correctly.
 
 Run the following commands:
 
