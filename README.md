@@ -4,7 +4,7 @@ A Typescript React / Redux application, to get top headlines of different source
 
 ![Desktop browser screenshot - Home](./misc/newshub_lucazweb_screenshot.png)
 
-![Desktop browser screenshot - Story Detail](./misc/newshub_lucazweb_screenshot.png)
+![Desktop browser screenshot - Story Detail](./misc/newshub_lucazweb_screenshot2.png)
 
 ### Installation
 
