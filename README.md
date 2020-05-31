@@ -22,6 +22,6 @@ At the root of the project, run `yarn` ou `npm install`
 
 The main motivation for the development of this application was the study of the react / typescript ecosystem using a state manager, in the case of Redux. Data is fetch from [The New York Times](https://developer.nytimes.com) and [The Guardian API](https://open-platform.theguardian.com/documentation) until now, but will have more news sources soon. The ideia is to have different options from press about a topic, so, a search feature was provided to allow user to fetch data.
 
-### Licença
+### License
 
-Essa aplicação está licenciada de acordo com os termos MIT
+This application is under MIT license rules.
