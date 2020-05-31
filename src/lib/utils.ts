@@ -8,5 +8,5 @@ export const truncateString = (str: string, maxChars: number = 60) => {
 
 export const handleHTMLString = (str: string) => {
   let pattern = /<[^>]*>/g;
-  return str.replace(pattern, '');
+  return str ? str.replace(pattern, '') : str;
 };

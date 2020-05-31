@@ -28,7 +28,7 @@ export const StoryDetail: React.FC<StoryDetail> = ({ story, handleClose }) => {
         <StoryFeaturedImage image={story.image} />
         <StoryContent>{handleHTMLString(story.content)}</StoryContent>
         <SourceTitle>
-          See on:
+          See on: {''}
           <a href={story.url} rel="noopener noreferrer" target="_blank">
             {story.source}
           </a>
