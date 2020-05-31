@@ -59,6 +59,14 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
     setDisplaySearch((display) => !display);
   };
 
+  const handleKeyEscape = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { keyCode } = e;
+    if (keyCode === 27) {
+      setQuery('');
+      handleDisplaySearch();
+    }
+  };
+
   useEffect(() => {
     fetchNews();
   }, []);
@@ -74,6 +82,7 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
                   <SearchInput
                     value={query}
                     onChange={handleFieldChange}
+                    onKeyDown={handleKeyEscape}
                     placeholder="Search for keyword"
                   />
                 </SearchFormField>
