@@ -46,6 +46,7 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleDisplaySearch();
+    fetchNews(query);
   };
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +65,7 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
     if (keyCode === 27) {
       setQuery('');
       handleDisplaySearch();
+      fetchNews('');
     }
   };
 
