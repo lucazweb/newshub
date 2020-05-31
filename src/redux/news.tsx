@@ -106,6 +106,8 @@ export const fetchNews = (
       data: { articles, totalResults },
     } = response;
 
+    console.log(theNYTNews);
+
     const news = [...theGuardianNews, ...theNYTNews];
 
     // const news = articles.reduce(

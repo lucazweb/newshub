@@ -66,15 +66,17 @@ export const apiTGuardian = axios.create({
 apiTGuardian.interceptors.request.use((config) => {
   config.params = config.params || {};
   config.params['api-key'] = TGuardianApiKey;
+  config.params['pageSize'] = 3;
   config.params['show-fields'] = 'body,headline,short-url,thumbnail';
   return config;
 });
 
-export const fetchTGuardian = (q: string = '') => {
+export const fetchTGuardian = (q: string = 'covid') => {
   return apiTGuardian
     .get('/search', {
       params: {
         q,
+        'page-size': 4,
       },
     })
     .then(
@@ -143,6 +145,7 @@ export interface NYTStory {
   abstract: string;
   headline: {
     name: string;
+    main: string;
   };
   byline: {
     original: string;
@@ -158,10 +161,10 @@ export interface NYTStory {
 export const NytToStory = (story: NYTStory) => {
   return {
     id: story._id,
-    title: story.headline.name,
+    title: story.headline.main,
     description: story.snippet,
     author: story.byline.original,
-    image: story.multimedia[0].url,
+    image: `https://www.nytimes.com/${story.multimedia[0].url}`,
     url: story.web_url,
     publishedAt: story.pub_date,
     content: story.headline.name,
