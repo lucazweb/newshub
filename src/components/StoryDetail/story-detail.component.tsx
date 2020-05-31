@@ -10,6 +10,7 @@ import {
 } from './story-detail.styled';
 import { Story } from '../../redux/news';
 import { RiCloseLine } from 'react-icons/ri';
+import { handleHTMLString } from '../../lib/utils';
 
 interface StoryDetail {
   story: Story;
@@ -25,9 +26,9 @@ export const StoryDetail: React.FC<StoryDetail> = ({ story, handleClose }) => {
         </CloseBtn>
         <StoryTitle>{story.title}</StoryTitle>
         <StoryFeaturedImage image={story.image} />
-        <StoryContent>{story.content}</StoryContent>
+        <StoryContent>{handleHTMLString(story.content)}</StoryContent>
         <SourceTitle>
-          See on:{' '}
+          See on:
           <a href={story.url} rel="noopener noreferrer" target="_blank">
             {story.source}
           </a>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { StoryItem, StoryDetail } from '../../components';
+import { StoryItem } from '../../components';
+import { StoryDetail } from '../../components/StoryDetail/story-detail.component';
 import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
-import { TiArrowShuffle } from 'react-icons/ti';
+import { GoPulse } from 'react-icons/go';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Story, fetchNews } from '../../redux/news';
@@ -45,8 +46,8 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
               Results for <em>Covid 19</em> of principals news sources
             </ResultText>
             <ShuffleButton>
-              <TiArrowShuffle />
-              <span>Shuffle</span>
+              <GoPulse />
+              <span>Pulse</span>
             </ShuffleButton>
           </ResultHeading>
         </Col>

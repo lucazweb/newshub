@@ -1,8 +1,14 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
-import api from '../services/news.service';
-import { translateStory } from '../lib/utils';
+import api, {
+  fetchTGuardian,
+  fetchNYT,
+  // translateStory,
+  tGuardianToStory,
+  NYTStory,
+  NytToStory,
+} from '../services/news.service';
 import {
   EnableLoadingAction,
   DisableLoadingAction,
@@ -55,21 +61,55 @@ export const fetchNews = (
   });
 
   try {
-    // Performing an api call
-    const response = await api.get('/top-headlines', {
-      params: {
-        country: 'us',
-      },
-    });
+    // Fetch The Guardian Data and NYT
+    const [theGuardian, NYT] = await Promise.all([
+      fetchTGuardian(),
+      fetchNYT(),
+    ]);
 
-    const {
-      data: { articles, totalResults },
-    } = response;
+    // console.log('⚡️', theGuardian, NYT);
 
-    const news = articles.reduce(
-      (acc: NewsState, story: any) => acc.concat(translateStory(story)),
+    interface TheGuardianData {
+      id: string;
+      webTitle: string;
+      fields: {
+        headline: string;
+        thumbnail: string;
+        shortUrl: string;
+        body: string;
+      };
+      webPublicationDate: string;
+    }
+
+    // translate The Guardian News
+    const theGuardianNews = theGuardian.reduce(
+      (acc: NewsState, story: TheGuardianData) =>
+        acc.concat(tGuardianToStory(story)),
       []
     );
+
+    const theNYTNews = NYT.reduce(
+      (acc: NewsState, story: NYTStory) => acc.concat(NytToStory(story)),
+      []
+    );
+
+    // Performing an api call to NEWSApi
+    // const response = await api.get('/top-headlines', {
+    //   params: {
+    //     country: 'us',
+    //   },
+    // });
+
+    // const {
+    //   data: { articles, totalResults },
+    // } = response;
+
+    // const news = articles.reduce(
+    //   (acc: NewsState, story: any) => acc.concat(translateStory(story)),
+    //   []
+    // );
+
+    const news = [...theGuardianNews, ...theNYTNews];
 
     dispatch({
       type: NEWS_SUCCESS,
@@ -82,6 +122,7 @@ export const fetchNews = (
       type: DISABLE_LOADING,
     });
   } catch (err) {
+    console.log(err);
     // dispatch NEWS_FAILURE ACTION
   }
 };

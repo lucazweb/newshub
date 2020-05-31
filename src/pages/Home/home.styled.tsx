@@ -38,6 +38,6 @@ export const ShuffleButton = styled.button`
   }
 
   &:hover {
-    background: #003399;
+    // background: #003399;
   }
 `;
