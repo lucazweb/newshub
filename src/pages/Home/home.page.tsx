@@ -84,6 +84,7 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
                   <SearchInput
                     value={query}
                     onChange={handleFieldChange}
+                    onBlur={handleDisplaySearch}
                     onKeyDown={handleKeyEscape}
                     placeholder="Search for keyword"
                   />

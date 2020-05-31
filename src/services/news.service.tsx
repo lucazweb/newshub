@@ -174,7 +174,7 @@ export const NytToStory = (story: NYTStory) => {
     url: story.web_url,
     publishedAt: story.pub_date,
     content: story.headline.name,
-    source: story.source,
+    source: story.source ? story.source : 'The New York Times',
   };
 };
 
