@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { StoryItem } from '../../components';
+import { StoryItem, SearchButton, QueryButton } from '../../components';
 import { StoryDetail } from '../../components/StoryDetail/story-detail.component';
-import { ResultHeading, ResultText, ShuffleButton } from './home.styled';
+import {
+  ResultHeading,
+  ResultText,
+  ShuffleButton,
+  SearchForm,
+  SearchFormField,
+  SearchInput,
+} from './home.styled';
 import { GoPulse } from 'react-icons/go';
+
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Story, fetchNews } from '../../redux/news';
@@ -28,9 +36,27 @@ interface HomePageProps extends PropsFromRedux {}
 
 const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
   const [story, setStory] = useState<Story | null>(null);
+  const [query, setQuery] = useState<string>('');
+  const [displaySearch, setDisplaySearch] = useState<boolean>(false);
 
   const handleClose = () => {
     setStory(null);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleDisplaySearch();
+  };
+
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+    setQuery(value);
+  };
+
+  const handleDisplaySearch = () => {
+    setDisplaySearch((display) => !display);
   };
 
   useEffect(() => {
@@ -42,9 +68,39 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
       <Row between="xs">
         <Col xs={12}>
           <ResultHeading>
-            <ResultText>
-              Results for <em>Covid 19</em> of principals news sources
-            </ResultText>
+            {displaySearch ? (
+              <SearchForm onSubmit={handleSubmit}>
+                <SearchFormField>
+                  <SearchInput
+                    value={query}
+                    onChange={handleFieldChange}
+                    placeholder="Search for keyword"
+                  />
+                </SearchFormField>
+              </SearchForm>
+            ) : (
+              <>
+                {query === '' ? (
+                  <>
+                    <ResultText>
+                      New stories from different news sources
+                      <SearchButton onClick={handleDisplaySearch} />
+                    </ResultText>
+                  </>
+                ) : (
+                  <>
+                    <ResultText>
+                      Results for
+                      <QueryButton onClick={handleDisplaySearch}>
+                        {query}
+                      </QueryButton>
+                      of different news sources
+                    </ResultText>
+                  </>
+                )}
+              </>
+            )}
+
             <ShuffleButton>
               <GoPulse />
               <span>Pulse</span>

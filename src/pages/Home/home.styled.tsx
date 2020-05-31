@@ -10,6 +10,8 @@ export const ResultHeading = styled.div`
 `;
 
 export const ResultText = styled(H1)`
+  display: flex;
+  align-items: center;
   font-weight: medium;
   font-size: 1.3em;
   color: #333;
@@ -39,5 +41,27 @@ export const ShuffleButton = styled.button`
 
   &:hover {
     // background: #003399;
+  }
+`;
+
+// Search form
+export const SearchForm = styled.form`
+  width: 60%;
+`;
+
+export const SearchFormField = styled.div`
+  width: 100%;
+`;
+export const SearchInput = styled.input`
+  padding: 8px 10px;
+  border: 1px solid ${Colors.primary};
+  border-radius: 3px;
+  width: 100%;
+  height: 45px;
+  font-size: 1.1em;
+  color: ${Colors.primary};
+  &::placeholder {
+    color: #5c9df5;
+    font-weight: 100;
   }
 `;
