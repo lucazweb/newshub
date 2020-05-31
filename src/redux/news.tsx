@@ -63,8 +63,8 @@ export const fetchNews = (
   try {
     // Fetch The Guardian Data and NYT
     const [theGuardian, NYT] = await Promise.all([
-      fetchTGuardian(),
-      fetchNYT(),
+      fetchTGuardian(query),
+      fetchNYT(query),
     ]);
 
     // console.log('⚡️', theGuardian, NYT);
@@ -141,7 +141,7 @@ const newsReducer = function (
 ) {
   switch (action.type) {
     case NEWS_REQUEST:
-      return state;
+      return [];
 
     case NEWS_SUCCESS:
       const { news } = action.payload;

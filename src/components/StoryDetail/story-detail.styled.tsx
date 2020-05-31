@@ -12,7 +12,7 @@ export const StoryModalOverflow = styled.div`
   z-index: 999;
   width: 100%;
   height: 100vh;
-  background: rgba(226, 226, 183, 0.8);
+  background: rgba(78, 78, 78, 0.8);
 `;
 
 export const StoryModal = styled.div`
@@ -20,7 +20,7 @@ export const StoryModal = styled.div`
   width: 50%;
   height: 100vh;
   background: white;
-  border-left: 4px solid ${Colors.primary};
+  border-left: 2px solid ${Colors.primary};
   padding: 32px;
   overflow-y: scroll;
 

@@ -71,7 +71,8 @@ apiTGuardian.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchTGuardian = (q: string = 'covid') => {
+export const fetchTGuardian = (q: string = '') => {
+  console.log('tGuardian: ', q);
   return apiTGuardian
     .get('/search', {
       params: {
@@ -85,6 +86,7 @@ export const fetchTGuardian = (q: string = 'covid') => {
           response: { results },
         },
       }) => {
+        console.log(results);
         return results;
       }
     )
@@ -117,7 +119,8 @@ apiNYT.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchNYT = (q: string = 'covid') => {
+export const fetchNYT = (q: string = '') => {
+  console.log('NYT: ', q);
   return apiNYT
     .get('', {
       params: {
@@ -164,11 +167,14 @@ export const NytToStory = (story: NYTStory) => {
     title: story.headline.main,
     description: story.snippet,
     author: story.byline.original,
-    image: `https://www.nytimes.com/${story.multimedia[0].url}`,
+    image:
+      story.multimedia.length > 0
+        ? `https://www.nytimes.com/${story.multimedia[0].url}`
+        : '',
     url: story.web_url,
     publishedAt: story.pub_date,
     content: story.headline.name,
-    source: story.source,
+    source: story.source ? story.source : 'The New York Times',
   };
 };
 
