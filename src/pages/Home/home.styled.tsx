@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { H1 } from '../../components/Config/typography.component';
-import { Colors } from '../../components/Config/constants';
+import { Breakpoint, Colors } from '../../components/Config/constants';
 
 export const ResultHeading = styled.div`
   display: flex;
@@ -18,6 +18,10 @@ export const ResultText = styled(H1)`
   em {
     font-style: italic;
     font-weight: bold;
+  }
+
+  @media (max-width: ${Breakpoint.sm}em) {
+    font-size: 1em;
   }
 `;
 
@@ -41,6 +45,10 @@ export const ShuffleButton = styled.button`
 
   &:hover {
     // background: #003399;
+  }
+
+  @media (max-width: ${Breakpoint.sm}em) {
+    display: none;
   }
 `;
 
