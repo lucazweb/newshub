@@ -88,7 +88,7 @@ export const fetchTGuardian = (q: string = 'covid') => {
         return results;
       }
     )
-    .catch((err) => null);
+    .catch((err) => []);
 };
 
 export const tGuardianToStory = (story: TheGuardianStory) => {
@@ -133,7 +133,7 @@ export const fetchNYT = (q: string = 'covid') => {
         return docs;
       }
     )
-    .catch((err) => null);
+    .catch((err) => []);
 };
 
 interface MediaObj {

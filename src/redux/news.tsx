@@ -4,7 +4,7 @@ import { RootState } from './store';
 import api, {
   fetchTGuardian,
   fetchNYT,
-  translateStory,
+  // translateStory,
   tGuardianToStory,
   NYTStory,
   NytToStory,
@@ -62,13 +62,12 @@ export const fetchNews = (
 
   try {
     // Fetch The Guardian Data and NYT
-
     const [theGuardian, NYT] = await Promise.all([
       fetchTGuardian(),
       fetchNYT(),
     ]);
 
-    console.log('⚡️', theGuardian, NYT);
+    // console.log('⚡️', theGuardian, NYT);
 
     interface TheGuardianData {
       id: string;
@@ -93,27 +92,24 @@ export const fetchNews = (
       (acc: NewsState, story: NYTStory) => acc.concat(NytToStory(story)),
       []
     );
-    console.log('translated', theNYTNews);
 
-    // Performing an api call
-    const response = await api.get('/top-headlines', {
-      params: {
-        country: 'us',
-      },
-    });
+    // Performing an api call to NEWSApi
+    // const response = await api.get('/top-headlines', {
+    //   params: {
+    //     country: 'us',
+    //   },
+    // });
 
-    const {
-      data: { articles, totalResults },
-    } = response;
-
-    console.log(theNYTNews);
-
-    const news = [...theGuardianNews, ...theNYTNews];
+    // const {
+    //   data: { articles, totalResults },
+    // } = response;
 
     // const news = articles.reduce(
     //   (acc: NewsState, story: any) => acc.concat(translateStory(story)),
     //   []
     // );
+
+    const news = [...theGuardianNews, ...theNYTNews];
 
     dispatch({
       type: NEWS_SUCCESS,
