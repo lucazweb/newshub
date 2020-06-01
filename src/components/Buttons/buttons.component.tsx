@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledSearchBtn, StyledQueryBtn } from './buttons.styled';
 import { BsSearch } from 'react-icons/bs';
+import { RiCloseLine } from 'react-icons/ri';
 
 interface CustomButtonProps {
   onClick?: () => void;
@@ -10,6 +11,12 @@ interface CustomButtonProps {
 export const SearchButton: React.FC<CustomButtonProps> = (props) => (
   <StyledSearchBtn onClick={props?.onClick}>
     <BsSearch />
+  </StyledSearchBtn>
+);
+
+export const SearchClearButton: React.FC<CustomButtonProps> = (props) => (
+  <StyledSearchBtn onClick={props?.onClick}>
+    <RiCloseLine />
   </StyledSearchBtn>
 );
 
