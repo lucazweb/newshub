@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { StoryItem, SearchButton, QueryButton } from '../../components';
+import {
+  StoryItem,
+  SearchButton,
+  SearchClearButton,
+  QueryButton,
+} from '../../components';
 import { StoryDetail } from '../../components/StoryDetail/story-detail.component';
 import {
   ResultHeading,
@@ -69,6 +74,11 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
     }
   };
 
+  const handleClearSearch = () => {
+    setQuery('');
+    fetchNews('');
+  };
+
   useEffect(() => {
     fetchNews();
   }, []);
@@ -107,6 +117,7 @@ const HomePage: React.FC<HomePageProps> = ({ news, loading, fetchNews }) => {
                         {query}
                       </QueryButton>
                       of different news sources
+                      <SearchClearButton onClick={handleClearSearch} />
                     </ResultText>
                   </>
                 )}
